@@ -4,8 +4,10 @@
 # include <stdlib.h> //for write
 # include <dirent.h>
 # include <time.h> //for time func()
-# include <sys/stat.h> //for struct stat
+# include <sys/stat.h> //for struct stat && Rights MACRO
 # include <stdio.h>
+# include <grp.h> //for getgrid() == GROUP STRUCT ID
+# include <pwd.h> //for getpwuid() == PASSWD STRUCT ID
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 
@@ -46,7 +48,10 @@
 typedef struct      s_file{
     char            *name;
     char            *path;
-    mode_t           type;
+    char            *userid;
+    char            *groupid;
+    mode_t          mode;
+    char            ftype;
     char            *right;
     char            *date;
     off_t           tsize;
