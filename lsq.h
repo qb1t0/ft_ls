@@ -8,6 +8,8 @@
 # include <stdio.h>
 # include <grp.h> //for getgrid() == GROUP STRUCT ID
 # include <pwd.h> //for getpwuid() == PASSWD STRUCT ID
+# include <ntsid.h> //for major() && minor()
+# include <sys/xattr.h> //for flag -l(ACL), using getxattr()
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 
@@ -46,18 +48,23 @@
 
 
 typedef struct      s_file{
-    char            *name;
-    char            *path;
-    char            *userid;
-    char            *groupid;
-    mode_t          mode;
-    char            ftype;
-    char            *right;
-    char            *date;
+    ssize_t         acl;
+    char            *name_shrt;  //short file name
+    char            *name;      //file name
+    char            *wayback;   //file path
+    char            *userid;    //user id
+    char            *groupid;   //group id
+    char            *link;      //if link
+    mode_t          mode;       //from st_mode
+    char            ftype;      //file type
+    char            *right;     //file rights
+    char            *date;      //date
     off_t           tsize;
     nlink_t         nlinks;
     blkcnt_t        blocks;
-    time_t          seconds;
+    time_t          seconds;    //time
+    dev_t           mjr;        //major
+    dev_t           min;        //minor
     long            nanosec;
 
     struct s_file   *next;
